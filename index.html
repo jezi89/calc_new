@@ -116,25 +116,33 @@
       const myOperator = document.getElementById('operator');
       // Initialize Action and Memory
       let Action = '';
-      let Memory;
+      let Memory = undefined;
 
       //Put clicked Number in display in #numbers container (80% width)
       function onClickNumber(CN) {
         // If Statement to Check if myInput converted to String is any of these values, if so replace myInput.value with Clicked Number. const does not restrict change of Object properties.
-        if (
-          myInput.value === '' ||
+        if (myOperator.value === '=') {
+          console.log(myOperator.value);
+          myOperator.value = '';
+          myInput.value = CN;
+        } else if (
+          (myInput.value === '' && Memory != undefined) ||
           myInput.value === '0' ||
-          myOperator.value === '='
+          (myOperator.value != '' && Memory != undefined)
         ) {
+          console.log(myOperator.value);
+          myOperator.value = '';
           myInput.value = CN;
         }
         //Using include instead of Indexof for checking dot. .inlcudes() is more readable. Alternative here if you need strict checking [NaN] or want to at which index the dot is found.
         else if (myInput.value.includes('.') && CN === '.') {
           // If dot is there, check with regex Metacharacters \D for any Non Digit Charachter and replace it with an empty string
+          console.log(myOperator.value);
           CN = CN.replace(/\D/, '');
           myInput.value += CN;
           // In any other case, just concatenate clicked number passed into function to string
         } else {
+          console.log(myOperator.value);
           myInput.value += CN;
         }
       }
